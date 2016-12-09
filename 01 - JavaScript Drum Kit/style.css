@@ -48,7 +48,17 @@ kbd {
   font-size: 100px;
   top: 0;
   color: white;
-  top: 20%;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#speedbar {
+  position: absolute;
+  display: block;
+  font-size: 100px;
+  top: 0;
+  color: white;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
