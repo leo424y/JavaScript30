@@ -7,9 +7,8 @@
 </head>
 <body>
 
-  <div id="score">
-    0
-  </div>
+  <span id="score">0</span>
+
 
   <div class="keys">
     <div data-key="65" class="key">
@@ -51,7 +50,6 @@
   </div>
 
   <audio data-key="65" src="sounds/clap.wav"></audio>
-  <audio data-key="83" src="sounds/hihat.wav"></audio>
   <audio data-key="68" src="sounds/kick.wav"></audio>
   <audio data-key="70" src="sounds/openhat.wav"></audio>
   <audio data-key="71" src="sounds/boom.wav"></audio>
@@ -59,6 +57,7 @@
   <audio data-key="74" src="sounds/snare.wav"></audio>
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
 
 <script>
   function removeTransition(e) {
@@ -76,22 +75,37 @@
     audio.play();
   }
 
-  function playGame(e){
-    var question=65;
-    var answer;
+  function playQuestion() {
+    question = questions[Math.floor(Math.random()*questions.length)];
+    const audio = document.querySelector(`audio[data-key="${question}"]`);
+    const key = document.querySelector(`div[data-key="${question}"]`);
+    console.log(question);
+    if (!audio) return;
+    key.classList.add('playing');
+    audio.play();
+  }
 
+  function playGame(e){
+    var nextQuestion;
     answer=e.keyCode;
+    console.log(answer);
     if (question === answer){
       score+=1;
+
       console.log('win');
       console.log(score);
-
+      document.getElementById('score').innerHTML=score;
     }else {
       console.log('lose');
       score=0;
     }
+    nextQuestion = setTimeout(function(){ playQuestion(); }, 2000);
+
   }
+  question=0;
   score=0;
+  answer=0;
+  questions = Array(65, 68, 70, 71, 72, 74, 75, 76, 83);
   const keys = Array.from(document.querySelectorAll('.key'));
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
