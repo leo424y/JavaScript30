@@ -94,11 +94,11 @@
 
       console.log('win');
       console.log(score);
-      document.getElementById('score').innerHTML=score;
     }else {
       console.log('lose');
       score=0;
     }
+    document.getElementById('score').innerHTML=score;
     nextQuestion = setTimeout(function(){ playQuestion(); }, 2000);
 
   }
