@@ -42,6 +42,8 @@
     items.push(item); //add item
     // console.table(items); //check
     populateList(items, itemsList);
+    // only string
+    localStorage.setItem('items', JSON.stringify(items));
     this.reset(); //clear item
   }
 
