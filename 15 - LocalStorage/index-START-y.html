@@ -59,14 +59,21 @@
   }
 
   function toggleDone(e){
-
+    if(!e.target.matches('input'))return; //skip unless it's an input
+    const el = e.target;
+    const index = el.dataset.index;
+    items[index].done = !items[index].done;
+    localStorage.setItem('items', JSON.stringify(items));
+    // console.log(e.target);
   }
 
   addItems.addEventListener('submit', addItem);
   populateList(items, itemsList);
 
-  const checkboxes = document.querySelectorAll('input');
-  checkboxes.forEach(input =>input.addEventListener('click', () => alert('hi')));
+  itemsList.addEventListener('click', toggleDone);
+
+  // const checkboxes = document.querySelectorAll('input');
+  // checkboxes.forEach(input =>input.addEventListener('click', () => alert('hi')));
 </script>
 
 
