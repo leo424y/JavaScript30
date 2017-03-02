@@ -5,20 +5,21 @@
   <title>Document</title>
 </head>
 <body>
-
-
+<div id="demo">
+</div>
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
         <div class="hand min-hand"></div>
         <div class="hand second-hand"></div>
+				<button onclick="postDoll()">Click me</button>
       </div>
     </div>
 
 
   <style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      /*background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);*/
       background-size:cover;
       font-family:'helvetica neue';
       text-align: center;
@@ -89,7 +90,45 @@
     hourHand.style.transform = `rotate(${hourDegrees}deg)`;
   }
 
+  function getDoll(){
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+						myObj = JSON.parse(this.responseText);
+						document.getElementById("demo").innerHTML = myObj.doll.status;
+				}
+		};
+		xmlhttp.open("GET", "https://jd-api-staging.herokuapp.com/api/v1/dolls/1", true);
+		xmlhttp.send();
+  }
+
+  function postDoll() {
+		var xmlhttp = new XMLHttpRequest();
+		var doll_status = document.getElementById("demo").innerHTML;
+
+		xmlhttp.open("PUT", "https://jd-api-staging.herokuapp.com/api/v1/dolls/", false);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		http.setRequestHeader("Accept", "application/json");
+		xmlHttpRequest.send(JSON.stringify({
+		    "httpRequest": {
+		        "method": "POST",
+		        "path": "/1",
+		        "body": {
+		            "type": "JSON",
+		            "value": JSON.stringify({
+  "doll": {
+    "id": 1,
+    "status": 2
+  }
+})
+		        }
+		    }
+		}));
+  }
+
   setInterval(setDate, 1000);
+  setInterval(getDoll, 1000);
+
 
 </script>
 </body>
